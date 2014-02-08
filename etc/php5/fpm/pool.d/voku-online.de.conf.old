@@ -1,0 +1,29 @@
+[voku-online.de]
+; one Port for one Website
+listen = 127.0.0.1:11001
+
+; uid/gid
+user = web1_voku
+group = web1
+
+; logging
+;request_slowlog_timeout = 5s
+;slowlog = /var/log/slowlog-voku-online.de.log
+
+; Choose how the process manager will control the number of child processes.
+pm.max_children = 1
+pm.start_servers = 1
+pm.min_spare_servers = 1
+pm.max_spare_servers = 1
+pm.max_requests = 100
+
+; Pass environment variables
+env[TMP] = /var/www/www.voku-online.de/phptmp
+env[TMPDIR] = /var/www/www.voku-online.de/phptmp
+env[TEMP] = /var/www/www.voku-online.de/phptmp
+
+; inculde defaults 
+include = /etc/php5/fpm/common.conf
+
+; host-specific php ini settings here
+;php_admin_value[open_basedir] = /home/vhosts/2point1.com/httpdocs:/tmp
