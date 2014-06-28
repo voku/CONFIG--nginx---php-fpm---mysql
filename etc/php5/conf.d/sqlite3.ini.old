@@ -1,3 +1,0 @@
-; configuration for php SQLite3 module
-extension=sqlite.so
-extension=sqlite3.so
