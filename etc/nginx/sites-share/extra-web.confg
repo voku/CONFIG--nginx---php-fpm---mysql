@@ -15,19 +15,19 @@
 	}
 
 	## Block file injections
-	set $block_file_injections 0;
-	if ($query_string ~ "[a-zA-Z0-9_]=http://") {
-		set $block_file_injections 1;
-	}
-	if ($query_string ~ "[a-zA-Z0-9_]=(\.\.//?)+") {
-		set $block_file_injections 1;
-	}
-	if ($query_string ~ "[a-zA-Z0-9_]=/([a-z0-9_.]//?)+") {
-		set $block_file_injections 1;
-	}
-	if ($block_file_injections = 1) {
-		return 403;
-	}
+#	set $block_file_injections 0;
+#	if ($query_string ~ "[a-zA-Z0-9_]=http://") {
+#		set $block_file_injections 1;
+#	}
+#	if ($query_string ~ "[a-zA-Z0-9_]=(\.\.//?)+") {
+#		set $block_file_injections 1;
+#	}
+#	if ($query_string ~ "[a-zA-Z0-9_]=/([a-z0-9_.]//?)+") {
+#		set $block_file_injections 1;
+#	}
+#	if ($block_file_injections = 1) {
+#		return 403;
+#	}
 
 	## Block common exploits
 	set $block_common_exploits 0;
