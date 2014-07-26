@@ -98,7 +98,7 @@
   }
 
   ## all files/directories that are protected and unaccessible from the web
-  location ~* ^.*(\.(?:git|svn|htaccess|po[t]*))$ {
+  location ~* ^.*(\.(?:htaccess|bak|conf|config|dist|fla|in[ci]|log|psd|sh|sql|yml|db|twig|stxt|git|svn|rb|sw[op]|po[t]*))$ {
     return 404;
   }
 
@@ -166,19 +166,23 @@
 		gzip_static on;
 
     autoindex off;
-    expires 1d;
+    expires 7d;
     add_header Pragma public;
+
     # We bypass all delays in the post-check and pre-check parameters of Cache-Control. Both set to 0.
     add_header Pragma public;
     add_header Cache-Control "public, must-revalidate, proxy-revalidate, post-check=0, pre-check=0";
+
     ## No need to bleed constant updates. Send the all shebang in one
     ## fell swoop.
     tcp_nodelay off;
+
 		## Set the OS file cache.
 		open_file_cache max=3000 inactive=120s;
 		open_file_cache_valid 45s;
 		open_file_cache_min_uses 2;
 		open_file_cache_errors off;
+
     break;
   }
 
