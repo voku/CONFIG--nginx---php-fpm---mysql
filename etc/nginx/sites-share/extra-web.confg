@@ -54,14 +54,14 @@
 	}
 
 	## remove any multislashes //
-#  if ($request_uri ~* "\/\/") {
-#    rewrite ^(.*)$ $scheme://$host$1 permanent;
-#  }
+  if ($request_uri ~* "\/\/") {
+    rewrite ^(.*)$ $scheme://$host$1 permanent;
+  }
 
   ## Slash am Ende anfuegen
-#  if ($request_uri ~* "^[\w\-\/]+[^\/?]$") {
-#    rewrite ^(.*)$ $scheme://$host$1/ permanent;
-#  }
+  if ($request_uri ~* "^[\w\-\/]+[^\/?]$") {
+    rewrite ^(.*)$ $scheme://$host$1/ permanent;
+  }
 
   ## www eifuegen
 # if ($host !~* ^(www|subdomain)) {
