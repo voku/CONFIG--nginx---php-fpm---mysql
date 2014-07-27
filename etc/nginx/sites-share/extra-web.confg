@@ -58,11 +58,6 @@
     rewrite ^(.*)$ $scheme://$host$1 permanent;
   }
 
-  ## Slash am Ende anfuegen
-  if ($request_uri ~* "^[\w\-\/]+[^\/?]$") {
-    rewrite ^(.*)$ $scheme://$host$1/ permanent;
-  }
-
   ## www eifuegen
 # if ($host !~* ^(www|subdomain)) {
 #   rewrite ^(.*)$ $scheme://www.$host$1 permanent;
