@@ -1,4 +1,6 @@
 
+  add_header "Access-Control-Allow-Origin" $http_origin;
+
 	## Block SQL injections
 	set $block_sql_injections 0;
 	if ($query_string ~ "union.*select.*\(") {
@@ -181,7 +183,7 @@
     break;
   }
 
-	# ----------------------------------------- maybe we are done here 
+	# ----------------------------------------- maybe we are done here
 
   if (-f $request_filename) {
     break;
