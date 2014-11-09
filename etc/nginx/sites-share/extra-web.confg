@@ -56,9 +56,9 @@
 	}
 
 	## remove any multislashes //
-  if ($request_uri ~* "\/\/") {
-    rewrite ^(.*)$ $scheme://$host$1 permanent;
-  }
+# if ($request_uri ~* "\/\/") {
+#   rewrite ^(.*)$ $scheme://$host$1 permanent;
+# }
 
   ## www eifuegen
 # if ($host !~* ^(www|subdomain)) {
@@ -146,19 +146,19 @@
 
   ## static files are served directly
   location ~* \.(?:js|css|htm?|js\?ver.*|css\?ver.*)$ {
-    set $betterForCache  0;
-
-    if ($args ~* ver=(.*)$) {
-      set $betterForCache  1;
-    }
-
-    if ($request_uri ~* "/wp-admin") {
-      set $betterForCache  0;
-    }
-
-    if ($betterForCache = 1) {
-      rewrite ^(.*) $scheme://$host$uri? last;
-    }
+#    set $betterForCache  0;
+#
+#    if ($args ~* ver=(.*)$) {
+#      set $betterForCache  1;
+#    }
+#
+#    if ($request_uri ~* "/wp-admin") {
+#      set $betterForCache  0;
+#    }
+#
+#    if ($betterForCache = 1) {
+#      rewrite ^(.*) $scheme://$host$uri? last;
+#    }
 
 		gzip_static on;
 
