@@ -1,61 +1,61 @@
 
   add_header "Access-Control-Allow-Origin" $http_origin;
 
-	## Block SQL injections
-	set $block_sql_injections 0;
-	if ($query_string ~ "union.*select.*\(") {
-		set $block_sql_injections 1;
-	}
-	if ($query_string ~ "union.*all.*select.*") {
-		set $block_sql_injections 1;
-	}
-	if ($query_string ~ "concat.*\(") {
-		set $block_sql_injections 1;
-	}
-	if ($block_sql_injections = 1) {
-		return 403;
-	}
+  ## Block SQL injections
+  set $block_sql_injections 0;
+  if ($query_string ~ "union.*select.*\(") {
+    set $block_sql_injections 1;
+  }
+  if ($query_string ~ "union.*all.*select.*") {
+    set $block_sql_injections 1;
+  }
+  if ($query_string ~ "concat.*\(") {
+    set $block_sql_injections 1;
+  }
+  if ($block_sql_injections = 1) {
+    return 403;
+  }
 
-	## Block file injections
-#	set $block_file_injections 0;
-#	if ($query_string ~ "[a-zA-Z0-9_]=http://") {
-#		set $block_file_injections 1;
-#	}
-#	if ($query_string ~ "[a-zA-Z0-9_]=(\.\.//?)+") {
-#		set $block_file_injections 1;
-#	}
-#	if ($query_string ~ "[a-zA-Z0-9_]=/([a-z0-9_.]//?)+") {
-#		set $block_file_injections 1;
-#	}
-#	if ($block_file_injections = 1) {
-#		return 403;
-#	}
+  ## Block file injections
+# set $block_file_injections 0;
+# if ($query_string ~ "[a-zA-Z0-9_]=http://") {
+#   set $block_file_injections 1;
+# }
+# if ($query_string ~ "[a-zA-Z0-9_]=(\.\.//?)+") {
+#   set $block_file_injections 1;
+# }
+# if ($query_string ~ "[a-zA-Z0-9_]=/([a-z0-9_.]//?)+") {
+#   set $block_file_injections 1;
+# }
+# if ($block_file_injections = 1) {
+#   return 403;
+# }
 
-	## Block common exploits
-	set $block_common_exploits 0;
-	if ($query_string ~ "(<|%3C).*script.*(>|%3E)") {
-		set $block_common_exploits 1;
-	}
-	if ($query_string ~ "GLOBALS(=|\[|\%[0-9A-Z]{0,2})") {
-		set $block_common_exploits 1;
-	}
-	if ($query_string ~ "_REQUEST(=|\[|\%[0-9A-Z]{0,2})") {
-		set $block_common_exploits 1;
-	}
-	if ($query_string ~ "proc/self/environ") {
-		set $block_common_exploits 1;
-	}
-	if ($query_string ~ "mosConfig_[a-zA-Z_]{1,21}(=|\%3D)") {
-		set $block_common_exploits 1;
-	}
-	if ($query_string ~ "base64_(en|de)code\(.*\)") {
-		set $block_common_exploits 1;
-	}
-	if ($block_common_exploits = 1) {
-		return 403;
-	}
+  ## Block common exploits
+  set $block_common_exploits 0;
+  if ($query_string ~ "(<|%3C).*script.*(>|%3E)") {
+    set $block_common_exploits 1;
+  }
+  if ($query_string ~ "GLOBALS(=|\[|\%[0-9A-Z]{0,2})") {
+    set $block_common_exploits 1;
+  }
+  if ($query_string ~ "_REQUEST(=|\[|\%[0-9A-Z]{0,2})") {
+    set $block_common_exploits 1;
+  }
+  if ($query_string ~ "proc/self/environ") {
+    set $block_common_exploits 1;
+  }
+  if ($query_string ~ "mosConfig_[a-zA-Z_]{1,21}(=|\%3D)") {
+    set $block_common_exploits 1;
+  }
+  if ($query_string ~ "base64_(en|de)code\(.*\)") {
+    set $block_common_exploits 1;
+  }
+  if ($block_common_exploits = 1) {
+    return 403;
+  }
 
-	## remove any multislashes //
+  ## remove any multislashes //
 # if ($request_uri ~* "\/\/") {
 #   rewrite ^(.*)$ $scheme://$host$1 permanent;
 # }
@@ -82,7 +82,7 @@
   ## immer HTTP verwenden
 # rewrite ^(.*) http://$server_name$1 permanent;
 
-	## don't use php-files in other directories
+  ## don't use php-files in other directories
   location ~ \..*/.*\.php$ {
     return 403;
   }
@@ -128,7 +128,7 @@
   location ~* \.(?:png|jpe?g|jpeg|gif|svg|ico|m4a|mp[34]|mov|ogg|flv|mid|midi|wav|bmp|rtf|zip|tgz|tar|gz|rar|doc|xls|exe|bz2|pdf|txt|ppt[x]*)$ {
     autoindex off;
     expires max;
-		# We bypass all delays in the post-check and pre-check parameters of Cache-Control. Both set to 0.
+    # We bypass all delays in the post-check and pre-check parameters of Cache-Control. Both set to 0.
     add_header Pragma public;
     add_header Cache-Control "public, must-revalidate, proxy-revalidate, post-check=0, pre-check=0";
     access_log off;
@@ -160,7 +160,7 @@
 #      rewrite ^(.*) $scheme://$host$uri? last;
 #    }
 
-		gzip_static on;
+    gzip_static on;
 
     autoindex off;
     expires 7d;
@@ -174,18 +174,17 @@
     ## fell swoop.
     tcp_nodelay off;
 
-		## Set the OS file cache.
-		open_file_cache max=3000 inactive=120s;
-		open_file_cache_valid 45s;
-		open_file_cache_min_uses 2;
-		open_file_cache_errors off;
+    ## Set the OS file cache.
+    open_file_cache max=3000 inactive=120s;
+    open_file_cache_valid 45s;
+    open_file_cache_min_uses 2;
+    open_file_cache_errors off;
 
     break;
   }
 
-	# ----------------------------------------- maybe we are done here
+  # ----------------------------------------- maybe we are done here
 
   if (-f $request_filename) {
     break;
   }
-
