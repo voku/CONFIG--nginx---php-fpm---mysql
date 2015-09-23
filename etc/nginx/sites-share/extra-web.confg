@@ -165,7 +165,7 @@
 		# We bypass all delays in the post-check and pre-check parameters of Cache-Control. Both set to 0.
     add_header Pragma public;
     add_header Cache-Control "public, must-revalidate, proxy-revalidate, post-check=0, pre-check=0";
-    access_log off;
+    #access_log off;
     log_not_found off;
     ## No need to bleed constant updates. Send the all shebang in one
     ## fell swoop.
